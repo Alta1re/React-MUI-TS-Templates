@@ -1,3 +1,24 @@
+/* charmonman-regular - latin */
+@font-face {
+  font-family: "Charmonman-regular";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Charmonman Regular"), local("Charmonman-Regular"),
+    url("./assets/fonts/charmonman-v5-latin-regular.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("./assets/fonts/charmonman-v5-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+/* charmonman-700 - latin */
+@font-face {
+  font-family: "Charmonman-bold";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Charmonman Bold"), local("Charmonman-Bold"),
+    url("./assets/fonts/charmonman-v5-latin-700.woff2") format("woff2"),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+      url("./assets/fonts/charmonman-v5-latin-700.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 .App {
   text-align: center;
 }
