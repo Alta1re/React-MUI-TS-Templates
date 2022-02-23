@@ -3,6 +3,7 @@ import Layout from "./Layout/Layout/Layout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
 import { ThemeContext } from "./context/themeContext";
+import "./utils/firebase.js";
 
 // import roboto font
 import "@fontsource/roboto/300.css";
@@ -49,7 +50,7 @@ function App() {
         main: "#255e66",
       },
       secondary: {
-        main: "#276f58",
+        main: "#d4d46a",
       },
     },
   });

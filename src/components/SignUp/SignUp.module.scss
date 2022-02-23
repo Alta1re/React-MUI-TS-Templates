@@ -1,0 +1,41 @@
+.Container {
+  z-index: 10;
+  justify-content: center;
+  padding: 10px;
+  max-width: 90%;
+}
+
+.Card {
+  position: relative;
+  box-shadow: 2px 1px 3px black;
+  border-left: 1em solid black;
+  background-color: rgba(255, 255, 255, 0.6);
+  overflow: visible !important;
+}
+
+.Input {
+  margin: 10px;
+}
+
+.ValidationCard {
+  //border: 1px solid red;
+  position: absolute;
+  left: 100%;
+  min-width: 200px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.Validation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ValidationList {
+  text-align: left;
+}
+
+.Center {
+  display: flex;
+  justify-content: center;
+}

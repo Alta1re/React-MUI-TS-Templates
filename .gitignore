@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /.pnp
+/src/utils/firebase.js
 .pnp.js
 .env
 

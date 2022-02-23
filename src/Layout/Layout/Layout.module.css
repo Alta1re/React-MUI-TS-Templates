@@ -1,9 +1,49 @@
 .Heading {
+  margin-top: 100px;
   margin-bottom: 0;
   font-family: "Charmonman-regular";
-  font-size: 10rem;
+  font-size: 3rem;
   color: white;
   text-shadow: 2px 1px 3px black;
   text-align: center;
+}
+
+.Subtitle {
+  font-size: 1rem;
+  color: white;
+  text-shadow: 2px 1px 3px black;
+  margin-top: 5px;
+}
+
+.SecondContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .Heading {
+    font-size: 6rem;
+  }
+  .Subtitle {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .Heading {
+    font-size: 10rem;
+  }
+  .Subtitle {
+    font-size: 3rem;
+  }
 }
 /*# sourceMappingURL=Layout.module.css.map */

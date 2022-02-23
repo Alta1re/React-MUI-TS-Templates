@@ -1,6 +1,8 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 import {
   Grid,
   Card,
@@ -12,15 +14,41 @@ import {
   Paper,
 } from "@mui/material";
 
+import SignUp from "../../components/SignUp/SignUp";
+
 import dataImg from "../../assets/images/data-5606639_1920.jpg";
 import codinImg from "../../assets/images/coding-4570799_1920.jpg";
 import smartImg from "../../assets/images/smartphone-3179295_1920.jpg";
+import fisherImg from "../../assets/images/fisherman_1920.jpg";
 
 import classes from "./Layout.module.css";
 
 export interface ILayoutProps {}
 
+interface SignUpData {
+  email: string;
+  password: string;
+}
+
 export default function Layout(props: ILayoutProps) {
+  const onSubmitSignupHandler = (data: SignUpData) => {
+    console.log("DATA: ", data);
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("USER", user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("AUTH_ERROR: ", errorCode, " : ", errorMessage);
+        // ..
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -48,21 +76,16 @@ export default function Layout(props: ILayoutProps) {
         />
         <Grid item xs={12} style={{ zIndex: 1 }}>
           <h1 className={classes.Heading}>hager - web</h1>
-          <h2
-            style={{
-              fontSize: "3rem",
-              color: "white",
-              textShadow: "2px 1px 3px black",
-              marginTop: "5px",
-            }}
-          >
-            Apps - Webapps - Websites
-          </h2>
+          <h2 className={classes.Subtitle}>Apps - Webapps - Websites</h2>
           <Grid container justifyContent="center">
-            <Paper sx={{ padding: "10px" }}>
+            <Paper sx={{ padding: "10px" }} elevation={3}>
               <Typography variant="body1">
                 Wir erstellen Ihre App, WebApp oder Website ganz nach Ihren
                 Wünschen.
+              </Typography>
+              <Typography variant="body1">
+                Von der einfachen Datenbankapplikation bis hin zur nativen App
+                mit Backend-API, wir bringen Ihre Idee in Form.
               </Typography>
             </Paper>
           </Grid>
@@ -70,16 +93,12 @@ export default function Layout(props: ILayoutProps) {
       </Grid>
       <Grid
         container
+        className={classes.SecondContainer}
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
           backgroundImage: `url(${dataImg})`,
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          margin: 0,
         }}
       >
         <div
@@ -124,7 +143,7 @@ export default function Layout(props: ILayoutProps) {
           alignItems: "center",
           justifyContent: "center",
           height: "100vh",
-          backgroundImage: `url(${smartImg})`,
+          backgroundImage: `url(${fisherImg})`,
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -142,6 +161,7 @@ export default function Layout(props: ILayoutProps) {
             zIndex: 0,
           }}
         />
+        <SignUp onSubmit={onSubmitSignupHandler} language="de" />
       </Grid>
     </div>
   );
