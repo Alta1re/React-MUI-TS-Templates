@@ -1,3 +1,12 @@
+React-MUI-TS-Templates
+
+Here i am building functional components for ReactJS, based on MaterialUI and Typescript.
+
+My goal is to serve some standard components with a maximum of build-in functionality, while keeping fully reusable.
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
