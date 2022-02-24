@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+// material-ui components
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -10,10 +11,13 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 
+// CSS for this component
 import classes from "./SignUp.module.css";
 
+// loacalization file
 import TEXT from "./language";
 
+// regex for validation
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const charlength = "(?=.{8,})";
 const uppercaseLetter = "(?=.*[A-Z])";
@@ -21,14 +25,23 @@ const lowercaseLetter = "(?=.*[a-z])";
 const digit = "(?=.*[0-9])";
 const specialChar = "([^A-Za-z0-9])";
 
+// typescript interface for props
+// onSubmit is required function, and will be called with two props:
+// "email" and "password"
+// language and termsLink are optional props
+// if termsLink is provided, the link will be shown at the bottom of the
+// card content (above the button)
 interface SignupProps {
   onSubmit: Function;
-  language: "de" | "en";
+  language?: "de" | "en";
+  termsLink?: string;
 }
 
 export default function SignUp(props: SignupProps) {
-  const { onSubmit, language } = props;
+  // object-destructuring for props
+  const { onSubmit, language = "de", termsLink = "" } = props;
 
+  // states
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(Boolean);
   const [password, setPassword] = useState("");
@@ -41,6 +54,7 @@ export default function SignUp(props: SignupProps) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(Boolean);
 
+  // password overall validation check
   useEffect(() => {
     passwordHasDigit &&
     passwordHasLength &&
@@ -57,16 +71,20 @@ export default function SignUp(props: SignupProps) {
     passwordHasSpecial,
   ]);
 
+  // confirm-password validation
   useEffect(() => {
     confirmPassword === password
       ? setConfirmPasswordValid(true)
       : setConfirmPasswordValid(false);
   }, [password, confirmPassword]);
 
+  // on submit props.onSubmit is called with email and password
+  // should be then handled in the upper component
   const onSubmitHandler = () => {
     onSubmit({ email: email, password: password });
   };
 
+  // email input handler with validation
   const onChangeEmailHandler = (string: string) => {
     if (string.match(mailformat)) {
       setEmailValid(true);
@@ -75,6 +93,8 @@ export default function SignUp(props: SignupProps) {
     }
     setEmail(string);
   };
+
+  // password input handler with validation
   const onChangePasswordHandler = (string: string) => {
     string.match(new RegExp(uppercaseLetter))
       ? setPasswordHasUpperCase(true)
@@ -97,6 +117,8 @@ export default function SignUp(props: SignupProps) {
       : setPasswordHasLength(false);
     setPassword(string);
   };
+
+  // confirm-password input handler
   const onChangeConfirmPasswordHandler = (string: string) => {
     setConfirmPassword(string);
   };
@@ -105,7 +127,7 @@ export default function SignUp(props: SignupProps) {
     <Grid className={classes.Container} container>
       <Grid item xs={12} md={12} className={classes.Center}>
         <Card className={classes.Card}>
-          {!passwordValid && (
+          {!passwordValid && password.length > 0 && (
             <div className={classes.ValidationCard}>
               <Typography variant="caption">
                 {TEXT.PASSWORD_MUST_HAVE[language]}
@@ -165,7 +187,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="email-input"
-                label="email"
+                label={TEXT.EMAIL[language]}
                 variant="outlined"
                 InputProps={{ type: "email", autoComplete: "email" }}
                 color={
@@ -181,7 +203,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="password-input"
-                label="password"
+                label={TEXT.PASSWORD[language]}
                 variant="outlined"
                 InputProps={{ type: "password", autoComplete: "new-password" }}
                 onChange={(event) =>
@@ -199,7 +221,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="confirm-password-input"
-                label="confirm password"
+                label={TEXT.CONFIRM_PASSWORD[language]}
                 variant="outlined"
                 InputProps={{ type: "password", autoComplete: "new-password" }}
                 onChange={(event) =>
@@ -215,12 +237,12 @@ export default function SignUp(props: SignupProps) {
                 }
               />
             </Box>
-            <Typography variant="caption">
-              {TEXT.VIEW_OUR[language]}
-              <a href="https://globe-chaser.de/agb">
-                {TEXT.TERMS_OF_SERVICE[language]}
-              </a>
-            </Typography>
+            {termsLink !== "" && (
+              <Typography variant="caption">
+                {TEXT.VIEW_OUR[language]}
+                <a href={termsLink}>{TEXT.TERMS_OF_SERVICE[language]}</a>
+              </Typography>
+            )}
           </CardContent>
           <CardActions
             sx={{

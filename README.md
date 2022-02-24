@@ -8,12 +8,7 @@ First component is a signup-component, which contains a UI with email, password 
 The email is verified, and the password is verified by containing uppercase, lowercase, number, specialchar and length.
 The props for this component needs a function for recieving the email and password, and gives the language. (until now, english and german are integrated, easy upgradeable)
 
-<SignUp onSubmit={(email:String, password: String)=>{...call backend to register user}} language={"de"|"en"}/>
-
-
-
-
-
+# <SignUp onSubmit={(email:String, password: String)=>{...call backend to register user} language={"de"|"en"}/>
 
 # Getting Started with Create React App
 

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "../../components/Navbar/Navbar";
+
+import { LanguageContext } from "../../context/languageContext";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -18,7 +20,6 @@ import SignUp from "../../components/SignUp/SignUp";
 
 import dataImg from "../../assets/images/data-5606639_1920.jpg";
 import codinImg from "../../assets/images/coding-4570799_1920.jpg";
-import smartImg from "../../assets/images/smartphone-3179295_1920.jpg";
 import fisherImg from "../../assets/images/fisherman_1920.jpg";
 
 import classes from "./Layout.module.css";
@@ -31,6 +32,7 @@ interface SignUpData {
 }
 
 export default function Layout(props: ILayoutProps) {
+  const { language } = useContext(LanguageContext);
   const onSubmitSignupHandler = (data: SignUpData) => {
     console.log("DATA: ", data);
     const auth = getAuth();
@@ -48,10 +50,38 @@ export default function Layout(props: ILayoutProps) {
         // ..
       });
   };
+  console.log("LANG: ", language);
 
   return (
     <div>
       <Navbar />
+      <Grid
+        container
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          backgroundImage: `url(${fisherImg})`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          margin: 0,
+          // background:
+          //   "linear-gradient(45deg,#5CE875,#34D15F,#00B343,#009948,#008049)",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100vh",
+            backgroundColor: "rgba(150,150,150,0.1)",
+            zIndex: 0,
+          }}
+        />
+        <SignUp onSubmit={onSubmitSignupHandler} language={language} />
+      </Grid>
 
       <Grid
         container
@@ -135,33 +165,6 @@ export default function Layout(props: ILayoutProps) {
             </h1>
           </CardContent>
         </Card>
-      </Grid>
-      <Grid
-        container
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          backgroundImage: `url(${fisherImg})`,
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          margin: 0,
-          // background:
-          //   "linear-gradient(45deg,#5CE875,#34D15F,#00B343,#009948,#008049)",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100vh",
-            backgroundColor: "rgba(150,150,150,0.5)",
-            zIndex: 0,
-          }}
-        />
-        <SignUp onSubmit={onSubmitSignupHandler} language="de" />
       </Grid>
     </div>
   );

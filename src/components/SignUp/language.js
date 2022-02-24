@@ -1,3 +1,5 @@
+import { Email } from "@mui/icons-material";
+
 export default {
   PASSWORD_MUST_HAVE: {
     en: "Password must fulfill the following conditions: ",
@@ -34,5 +36,17 @@ export default {
   VIEW_OUR: {
     en: "View our ",
     de: "Sehen Sie unsere ",
+  },
+  EMAIL: {
+    en: "email",
+    de: "Email",
+  },
+  PASSWORD: {
+    en: "password",
+    de: "Passwort",
+  },
+  CONFIRM_PASSWORD: {
+    en: "confirm-password",
+    de: "Passwort bestätigen",
   },
 };

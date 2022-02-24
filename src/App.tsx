@@ -3,6 +3,7 @@ import Layout from "./Layout/Layout/Layout";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
 import { ThemeContext } from "./context/themeContext";
+import { LanguageContext } from "./context/languageContext";
 import "./utils/firebase.js";
 
 // import roboto font
@@ -30,6 +31,7 @@ declare module "@mui/material/styles" {
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("light");
+  const [langu, setLangu] = useState<"de" | "en">("de");
 
   const themeMode = React.useMemo(
     () => ({
@@ -39,6 +41,13 @@ function App() {
     }),
     []
   );
+
+  const languageMode = {
+    setLanguage: function (lang: "de" | "en") {
+      setLangu(lang);
+    },
+    language: langu,
+  };
 
   const theme = createTheme({
     status: {
@@ -59,7 +68,9 @@ function App() {
     <div className="App">
       <ThemeContext.Provider value={themeMode}>
         <ThemeProvider theme={theme}>
-          <Layout />
+          <LanguageContext.Provider value={languageMode}>
+            <Layout />
+          </LanguageContext.Provider>
         </ThemeProvider>
       </ThemeContext.Provider>
     </div>
