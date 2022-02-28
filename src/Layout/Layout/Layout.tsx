@@ -56,6 +56,7 @@ export default function Layout(props: ILayoutProps) {
     <div>
       <Navbar />
       <Grid
+        id="home"
         container
         style={{
           display: "flex",
@@ -84,6 +85,7 @@ export default function Layout(props: ILayoutProps) {
       </Grid>
 
       <Grid
+        id="coding"
         container
         style={{
           display: "flex",
@@ -122,6 +124,7 @@ export default function Layout(props: ILayoutProps) {
         </Grid>
       </Grid>
       <Grid
+        id="data"
         container
         className={classes.SecondContainer}
         style={{

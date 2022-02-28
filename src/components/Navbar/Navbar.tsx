@@ -25,7 +25,7 @@ import { LanguageContext } from "../../context/languageContext";
 import deIcon from "../../assets/icons/germany.png";
 import ukIcon from "../../assets/icons/united-kingdom.png";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Products", "Pricing", "Blog", "Credits"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
