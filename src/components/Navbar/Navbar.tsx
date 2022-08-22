@@ -17,13 +17,9 @@ import {
 } from "@mui/material";
 
 import ThemeSwitch from "../CustomButtons/ThemeSwitch";
+import LanguageSwitch from "components/LanguageSwitch/LanguageSwitch";
 
 import { ThemeContext } from "../../context/themeContext";
-import { LanguageContext } from "../../context/languageContext";
-
-// icons
-import deIcon from "../../assets/icons/germany.png";
-import ukIcon from "../../assets/icons/united-kingdom.png";
 
 const pages = ["Products", "Pricing", "Blog", "Credits"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -49,7 +45,6 @@ const ResponsiveAppBar = () => {
   };
 
   const { toggleTheme } = useContext(ThemeContext);
-  const { setLanguage } = useContext(LanguageContext);
   const switchThemeMode = () => {
     setThemeMode((prev) => !prev);
     toggleTheme();
@@ -184,12 +179,7 @@ const ResponsiveAppBar = () => {
             }}
           >
             <div>
-              <IconButton onClick={() => setLanguage("de")}>
-                <img src={deIcon} width={28} />
-              </IconButton>
-              <IconButton onClick={() => setLanguage("en")}>
-                <img src={ukIcon} width={28} />
-              </IconButton>
+              <LanguageSwitch />
             </div>
             <ThemeSwitch checked={themeMode} onChange={switchThemeMode} />
           </div>

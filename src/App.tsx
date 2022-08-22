@@ -4,7 +4,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { orange } from "@mui/material/colors";
 import { ThemeContext } from "./context/themeContext";
 import { LanguageContext } from "./context/languageContext";
-import "./utils/firebase.js";
 
 // import roboto font
 import "@fontsource/roboto/300.css";
@@ -14,6 +13,9 @@ import "@fontsource/roboto/700.css";
 
 // import main css
 import "./App.css";
+
+// hoc
+import withGlobalAlert from "hoc/withGlobalAlert";
 
 declare module "@mui/material/styles" {
   interface Theme {
@@ -77,4 +79,4 @@ function App() {
   );
 }
 
-export default App;
+export default withGlobalAlert(App);

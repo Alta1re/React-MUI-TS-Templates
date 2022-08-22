@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
 
-import { LanguageContext } from "../../context/languageContext";
+import { useDispatch } from "react-redux";
+
+import { setAlert } from "store/alertReducer";
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+import { useTranslation } from "utils/i18n";
 
 import {
   Grid,
@@ -32,7 +36,10 @@ interface SignUpData {
 }
 
 export default function Layout(props: ILayoutProps) {
-  const { language } = useContext(LanguageContext);
+  const dispatch = useDispatch();
+
+  const { t } = useTranslation();
+
   const onSubmitSignupHandler = (data: SignUpData) => {
     console.log("DATA: ", data);
     const auth = getAuth();
@@ -46,43 +53,34 @@ export default function Layout(props: ILayoutProps) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        let errorTitle = t("ERROR");
+        let errorContent = t("ERROR");
+        switch (errorCode) {
+          case "auth/wrong-password":
+            errorTitle = t("WRONG_PASSWORD");
+            errorContent = t("TRY_AGAIN");
+            break;
+          case "auth/too-many-requests":
+            errorTitle = t("TOO_MANY_REQUESTS");
+            errorContent = t("TRY_AGAIN_LATER");
+            break;
+          default:
+            console.log("DEFAULT_CASE");
+        }
+        dispatch(
+          setAlert({
+            title: errorTitle,
+            content: errorContent,
+          })
+        );
         console.log("AUTH_ERROR: ", errorCode, " : ", errorMessage);
         // ..
       });
   };
-  console.log("LANG: ", language);
 
   return (
     <div>
       <Navbar />
-      <Grid
-        id="home"
-        container
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          backgroundImage: `url(${fisherImg})`,
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          margin: 0,
-          // background:
-          //   "linear-gradient(45deg,#5CE875,#34D15F,#00B343,#009948,#008049)",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            height: "100vh",
-            backgroundColor: "rgba(150,150,150,0.1)",
-            zIndex: 0,
-          }}
-        />
-        <SignUp onSubmit={onSubmitSignupHandler} language={language} />
-      </Grid>
 
       <Grid
         id="coding"
@@ -97,12 +95,12 @@ export default function Layout(props: ILayoutProps) {
           margin: 0,
         }}
       >
-        <div
+        <Paper
           style={{
             position: "absolute",
             width: "100%",
             height: "100vh",
-            backgroundColor: "rgba(150,150,150,0.5)",
+            opacity: "0.5",
             zIndex: 0,
           }}
         />
@@ -122,6 +120,34 @@ export default function Layout(props: ILayoutProps) {
             </Paper>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid
+        id="home"
+        container
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+          backgroundImage: `url(${fisherImg})`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          margin: 0,
+          // background:
+          //   "linear-gradient(45deg,#5CE875,#34D15F,#00B343,#009948,#008049)",
+        }}
+      >
+        <Paper
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100vh",
+            opacity: "0.5",
+            zIndex: 0,
+          }}
+        />
+        <SignUp onSubmit={onSubmitSignupHandler} />
       </Grid>
       <Grid
         id="data"

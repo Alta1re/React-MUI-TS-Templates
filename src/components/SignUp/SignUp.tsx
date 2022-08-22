@@ -15,9 +15,10 @@ import Grid from "@mui/material/Grid";
 import classes from "./SignUp.module.css";
 
 // loacalization file
-import TEXT from "./language";
+import { useTranslation } from "utils/i18n";
 
 // regex for validation
+// eslint-disable-next-line no-useless-escape
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const charlength = "(?=.{8,})";
 const uppercaseLetter = "(?=.*[A-Z])";
@@ -33,13 +34,12 @@ const specialChar = "([^A-Za-z0-9])";
 // card content (above the button)
 interface SignupProps {
   onSubmit: Function;
-  language?: "de" | "en";
   termsLink?: string;
 }
 
 export default function SignUp(props: SignupProps) {
   // object-destructuring for props
-  const { onSubmit, language = "de", termsLink = "" } = props;
+  const { onSubmit, termsLink = "" } = props;
 
   // states
   const [email, setEmail] = useState("");
@@ -53,6 +53,8 @@ export default function SignUp(props: SignupProps) {
   const [passwordValid, setPasswordValid] = useState(Boolean);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(Boolean);
+
+  const { t } = useTranslation();
 
   // password overall validation check
   useEffect(() => {
@@ -130,41 +132,33 @@ export default function SignUp(props: SignupProps) {
           {!passwordValid && password.length > 0 && (
             <div className={classes.ValidationCard}>
               <Typography variant="caption">
-                {TEXT.PASSWORD_MUST_HAVE[language]}
+                {t("PASSWORD_MUST_HAVE")}
               </Typography>
               <ul className={classes.ValidationList}>
                 {passwordHasLength ? null : (
                   <li>
-                    <Typography variant="caption">
-                      {TEXT.PASS_CHARS[language]}
-                    </Typography>
+                    <Typography variant="caption">{t("PASS_CHARS")}</Typography>
                   </li>
                 )}
                 {passwordHasLowerCase ? null : (
                   <li>
-                    <Typography variant="caption">
-                      {TEXT.LOWER_CASE[language]}
-                    </Typography>
+                    <Typography variant="caption">{t("LOWER_CASE")}</Typography>
                   </li>
                 )}
                 {passwordHasUpperCase ? null : (
                   <li>
-                    <Typography variant="caption">
-                      {TEXT.UPPER_CASE[language]}
-                    </Typography>
+                    <Typography variant="caption">{t("UPPER_CASE")}</Typography>
                   </li>
                 )}
                 {passwordHasDigit ? null : (
                   <li>
-                    <Typography variant="caption">
-                      {TEXT.DIGIT[language]}
-                    </Typography>
+                    <Typography variant="caption">{t("DIGIT")}</Typography>
                   </li>
                 )}
                 {passwordHasSpecial ? null : (
                   <li>
                     <Typography variant="caption">
-                      {TEXT.SPECIAL_CHAR[language]}
+                      {t("SPECIAL_CHAR")}
                     </Typography>
                   </li>
                 )}
@@ -187,7 +181,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="email-input"
-                label={TEXT.EMAIL[language]}
+                label={t("EMAIL")}
                 variant="outlined"
                 InputProps={{ type: "email", autoComplete: "email" }}
                 color={
@@ -203,7 +197,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="password-input"
-                label={TEXT.PASSWORD[language]}
+                label={t("PASSWORD")}
                 variant="outlined"
                 InputProps={{ type: "password", autoComplete: "new-password" }}
                 onChange={(event) =>
@@ -221,7 +215,7 @@ export default function SignUp(props: SignupProps) {
               <TextField
                 className={classes.Input}
                 id="confirm-password-input"
-                label={TEXT.CONFIRM_PASSWORD[language]}
+                label={t("CONFIRM_PASSWORD")}
                 variant="outlined"
                 InputProps={{ type: "password", autoComplete: "new-password" }}
                 onChange={(event) =>
@@ -239,8 +233,8 @@ export default function SignUp(props: SignupProps) {
             </Box>
             {termsLink !== "" && (
               <Typography variant="caption">
-                {TEXT.VIEW_OUR[language]}
-                <a href={termsLink}>{TEXT.TERMS_OF_SERVICE[language]}</a>
+                {t("VIEW_OUR")}
+                <a href={termsLink}>{t("TERMS_OF_SERVICE")}</a>
               </Typography>
             )}
           </CardContent>
@@ -255,7 +249,7 @@ export default function SignUp(props: SignupProps) {
               onClick={onSubmitHandler}
               disabled={!emailValid || !passwordValid || !confirmPasswordValid}
             >
-              {TEXT.SUBMIT[language]}
+              {t("SUBMIT")}
             </Button>
           </CardActions>
         </Card>
